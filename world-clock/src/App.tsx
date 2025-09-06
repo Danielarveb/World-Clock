@@ -1,35 +1,54 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { createContext, PropsWithChildren, useContext } from 'react';
+import { Routes, Route } from 'react-router-dom';
+import Home from './pages/Home';
+import CityDetail from './pages/CityDetail';
+import { useLocalStorage } from './hooks/useLocalStorage';
+import { City } from './types';
+import { POPULAR_CITIES } from './data';
 
-function App() {
-  const [count, setCount] = useState(0)
+type CitiesCtx = {
+  cities: City[];
+  addCity: (city: City) => void;
+  removeCity: (id: string) => void;
+};
 
-  return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+const CitiesContext = createContext<CitiesCtx | null>(null);
+
+function CitiesProvider({ children }: PropsWithChildren) {
+  // Starta med Stockholm förifylld
+  const [cities, setCities] = useLocalStorage<City[]>('worldclock:cities', [
+    POPULAR_CITIES[0]
+  ]);
+
+  const addCity = (city: City) => {
+    setCities(prev =>
+      prev.some(c => c.id === city.id)
+        ? prev
+        : [...prev, { ...city }]
+    );
+  };
+
+  const removeCity = (id: string) => {
+    setCities(prev => prev.filter(c => c.id !== id));
+  };
+
+  const value: CitiesCtx = { cities, addCity, removeCity };
+  return <CitiesContext.Provider value={value}>{children}</CitiesContext.Provider>;
 }
 
-export default App
+export function useCities() {
+  const ctx = useContext(CitiesContext);
+  if (!ctx) throw new Error('useCities must be used within CitiesProvider');
+  return ctx;
+}
+
+export default function App() {
+  return (
+    <CitiesProvider>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/city/:id" element={<CityDetail />} />
+      </Routes>
+    </CitiesProvider>
+  );
+}
