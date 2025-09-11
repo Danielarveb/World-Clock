@@ -36,3 +36,93 @@
 
 /* Responsive helpers */
 .container { max-width: 1100px; }
+
+/* Tick marks and labels */
+.ac-tick {
+  position: absolute;
+  bottom: 50%;
+  left: 50%;
+  transform-origin: bottom center;
+  width: 2px;
+  background: rgba(0,0,0,0.35);
+}
+.ac-tick.minor { height: 8px; }
+.ac-tick.major { height: 14px; width: 3px; background: rgba(0,0,0,0.55); }
+.ac-label {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  font-size: 12px;
+  font-weight: 600;
+  color: rgba(0,0,0,0.7);
+  user-select: none;
+}
+
+.clock {
+  border-radius: 50%;
+  background: radial-gradient(circle at center, #ffffff 60%, #f3f3f3 100%);
+  font-family: "Montserrat", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+  border: 6px solid #fff;
+  box-shadow: 
+    inset 4px 6px 12px rgba(0, 0, 0, 0.08),
+    0 8px 18px rgba(0, 0, 0, 0.15);
+  margin: 40px auto;
+}
+
+.wrap {
+  position: relative;
+  width: min(360px, 90vw);
+  height: min(360px, 90vw);
+  border-radius: 50%;
+  overflow: hidden;
+  background: repeating-radial-gradient(circle, transparent 0, transparent 29px, rgba(0,0,0,0.05) 30px);
+}
+
+.hour,
+.minute,
+.second {
+  position: absolute;
+  left: 50%;
+  bottom: 50%;
+  transform-origin: bottom center;
+  transform: rotate(0deg);
+  border-radius: 4px;
+}
+
+.hour {
+  height: 90px;
+  width: 8px;
+  background: #222;
+  box-shadow: 0 0 12px rgba(0,0,0,0.4);
+  margin-left: -4px;
+}
+
+.minute {
+  height: 120px;
+  width: 4px;
+  background: #444;
+  box-shadow: 0 0 10px rgba(0,0,0,0.3);
+  margin-left: -2px;
+}
+
+.second {
+  height: 140px;
+  width: 2px;
+  background: #FF4B3E;
+  box-shadow: 0 0 6px rgba(255,75,62,0.6);
+  margin-left: -1px;
+}
+
+.dot {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: #fff;
+  border: 2px solid #1b1b1b;
+  transform: translate(-50%, -50%);
+  z-index: 2;
+  box-shadow: 0 0 6px rgba(0,0,0,0.4);
+}
