@@ -28,3 +28,6 @@ export interface City {
 export interface ClockSettings {
   display: DisplayMode;
 }
+
+// Helpful aliases
+export type CityId = string;

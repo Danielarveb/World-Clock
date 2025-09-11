@@ -33,3 +33,6 @@
 }
 .ac-hour { width: 6px; }
 .ac-second { width: 2px; background: #c0392b; }
+
+/* Responsive helpers */
+.container { max-width: 1100px; }

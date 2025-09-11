@@ -1,8 +1,9 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import ClockDigital from './ClockDigital';
 import ClockAnalog from './ClockAnalog';
 import { City } from '../types';
+import { useClockSettings } from '../App';
 
 interface CityCardProps {
   city: City;
@@ -10,7 +11,14 @@ interface CityCardProps {
 }
 
 export default function CityCard({ city, onRemove }: CityCardProps) {
-  const [mode, setMode] = useState<'digital' | 'analog'>('digital');
+  const { settingsByCityId, setDisplayMode, removeSettings } = useClockSettings();
+  const [mode, setMode] = useState<'digital' | 'analog'>(
+    settingsByCityId[city.id]?.display ?? 'digital'
+  );
+
+  useEffect(() => {
+    setDisplayMode(city.id, mode);
+  }, [city.id, mode, setDisplayMode]);
 
   const handleToggle = () =>
     setMode(prev => (prev === 'digital' ? 'analog' : 'digital'));
@@ -50,7 +58,10 @@ export default function CityCard({ city, onRemove }: CityCardProps) {
           </Link>
           <button
             className="btn btn-outline-danger btn-sm ms-auto"
-            onClick={() => onRemove(city.id)}
+            onClick={() => {
+              onRemove(city.id);
+              removeSettings(city.id);
+            }}
           >
             Ta bort
           </button>

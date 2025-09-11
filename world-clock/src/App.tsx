@@ -3,7 +3,7 @@ import { Routes, Route } from 'react-router-dom';
 import Home from './pages/Home';
 import CityDetail from './pages/CityDetail';
 import { useLocalStorage } from './hooks/useLocalStorage';
-import { City } from './types';
+import { City, ClockSettings } from './types';
 import { POPULAR_CITIES } from './data';
 
 type CitiesCtx = {
@@ -13,6 +13,16 @@ type CitiesCtx = {
 };
 
 const CitiesContext = createContext<CitiesCtx | null>(null);
+
+type ClockSettingsMap = Record<string, ClockSettings>;
+
+type ClockSettingsCtx = {
+  settingsByCityId: ClockSettingsMap;
+  setDisplayMode: (cityId: string, display: ClockSettings['display']) => void;
+  removeSettings: (cityId: string) => void;
+};
+
+const ClockSettingsContext = createContext<ClockSettingsCtx | null>(null);
 
 function CitiesProvider({ children }: PropsWithChildren) {
   // Starta med Stockholm förifylld
@@ -42,13 +52,45 @@ export function useCities() {
   return ctx;
 }
 
+function ClockSettingsProvider({ children }: PropsWithChildren) {
+  const [settingsByCityId, setSettingsByCityId] = useLocalStorage<ClockSettingsMap>(
+    'worldclock:clock-settings',
+    {}
+  );
+
+  const setDisplayMode: ClockSettingsCtx['setDisplayMode'] = (cityId, display) => {
+    setSettingsByCityId(prev => ({ ...prev, [cityId]: { display } }));
+  };
+
+  const removeSettings: ClockSettingsCtx['removeSettings'] = cityId => {
+    setSettingsByCityId(prev => {
+      const next = { ...prev };
+      delete next[cityId];
+      return next;
+    });
+  };
+
+  const value: ClockSettingsCtx = { settingsByCityId, setDisplayMode, removeSettings };
+  return (
+    <ClockSettingsContext.Provider value={value}>{children}</ClockSettingsContext.Provider>
+  );
+}
+
+export function useClockSettings() {
+  const ctx = useContext(ClockSettingsContext);
+  if (!ctx) throw new Error('useClockSettings must be used within ClockSettingsProvider');
+  return ctx;
+}
+
 export default function App() {
   return (
     <CitiesProvider>
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/city/:id" element={<CityDetail />} />
-      </Routes>
+      <ClockSettingsProvider>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/city/:id" element={<CityDetail />} />
+        </Routes>
+      </ClockSettingsProvider>
     </CitiesProvider>
   );
 }

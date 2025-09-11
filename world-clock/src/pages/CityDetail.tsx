@@ -23,10 +23,10 @@ export default function CityDetail() {
       <div
         style={{
           height: 260,
-          backgroundImage: `url(${city.imageUrl ?? ''})`,
+          backgroundImage: `url(${city.imageUrl ?? 'https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=1600&auto=format&fit=crop'})`,
           backgroundSize: 'cover',
           backgroundPosition: 'center',
-          filter: city.imageUrl ? 'none' : 'grayscale(80%)'
+          filter: city.imageUrl ? 'none' : 'grayscale(60%)'
         }}
       />
       <div className="container py-4">

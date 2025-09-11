@@ -48,7 +48,7 @@ export default function Home() {
                 <select
                   className="form-select"
                   value={selectedId}
-                  onChange={e => setSelectedId(e.target.value)}
+                  onChange={e => setSelectedId((e.target as HTMLSelectElement).value)}
                 >
                   {popularLeft.length === 0 ? (
                     <option>Alla förvalda är redan tillagda</option>
@@ -78,7 +78,7 @@ export default function Home() {
                   <input
                     className="form-control"
                     value={name}
-                    onChange={e => setName(e.target.value)}
+                    onChange={e => setName((e.target as HTMLInputElement).value)}
                     placeholder="t.ex. Rome"
                   />
                 </div>
@@ -88,7 +88,7 @@ export default function Home() {
                     list="tz-list"
                     className="form-control"
                     value={tz}
-                    onChange={e => setTz(e.target.value)}
+                    onChange={e => setTz((e.target as HTMLInputElement).value)}
                     placeholder="t.ex. Europe/Rome"
                   />
                   <datalist id="tz-list">
