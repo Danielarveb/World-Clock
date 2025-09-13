@@ -1,4 +1,4 @@
-# World-Clock
+# World-Clock Daniel Arvebäck KYH FE24
 
 Project subfolder: `world-clock/`
 
