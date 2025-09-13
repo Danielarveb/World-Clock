@@ -1,4 +1,4 @@
-# World-Clock (monorepo root)
+# World-Clock
 
 Project subfolder: `world-clock/`
 
