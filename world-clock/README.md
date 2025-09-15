@@ -1,27 +1,27 @@
-# World Clock (React + TypeScript)
+World Clock (React + TypeScript)
 
-A responsive world clock where you can add predefined or custom cities/time zones, view both digital and analog clocks, and open a detail view per city with a background image. All preferences are saved in localStorage.
+En responsiv världsklocka där du kan lägga till färdiga eller egna städer/tidszoner, se både digital och analog klocka, samt öppna en detaljvy per stad med bakgrundsbild. Alla inställningar sparas i webbläsaren (localStorage).
 
-## Features
-- Add predefined cities (Stockholm, London, New York, etc.)
-- Add custom cities using any IANA time zone (e.g. `Europe/Rome`)
-- Per-city toggle between digital and analog clock, persisted
-- Detail view per city with background image
-- Fully responsive layout (Bootstrap 5 + custom CSS)
-- All choices saved to `localStorage`
+Funktioner
+	•	Lägg till färdiga städer (t.ex. Stockholm, London, New York)
+	•	Lägg till egna städer via IANA-tidszon (t.ex. Europe/Rome)
+	•	Växla mellan digital och analog klocka per stad (sparas automatiskt)
+	•	Detaljvy med bakgrundsbild för varje stad
+	•	Responsiv design
+	•	Alla val sparas i localStorage
 
-## Tech
-- React 18 with function components and hooks
-- TypeScript with strict interfaces and enums
-- React Router for routing
-- Vite for development/build
+Teknik
+	•	React 18 (funktionskomponenter + hooks)
+	•	TypeScript (interfaces och enums)
+	•	React Router för sidor
+	•	Vite för utveckling och bygg
 
-## Scripts
-- `npm install`
-- `npm run dev` (start)
-- `npm run build`
-- `npm run preview`
+Kommandon
+	•	npm install
+	•	npm run dev – starta projektet
+	•	npm run build – bygg projektet
+	•	npm run preview – förhandsvisa byggd version
 
-## Documentation
-- See `../docs/LOGBOOK.md` for TypeScript benefits and transpilation notes
-- See `../docs/USER_STORIES.md`, `../docs/PLANNING.md`, `../docs/DESIGN_SKETCHES.md`
+Dokumentation
+	•	../docs/LOGBOOK.md – TypeScript-exempel och transpilation
+	•	../docs/USER_STORIES.md, ../docs/PLANNING.md, ../docs/DESIGN_SKETCHES.md
