@@ -1,4 +1,3 @@
-import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import ClockDigital from './ClockDigital';
 import ClockAnalog from './ClockAnalog';
@@ -12,16 +11,12 @@ interface CityCardProps {
 
 export default function CityCard({ city, onRemove }: CityCardProps) {
   const { settingsByCityId, setDisplayMode, removeSettings } = useClockSettings();
-  const [mode, setMode] = useState<'digital' | 'analog'>(
-    settingsByCityId[city.id]?.display ?? 'digital'
-  );
+  const mode = settingsByCityId[city.id]?.display ?? 'digital';
 
-  useEffect(() => {
-    setDisplayMode(city.id, mode);
-  }, [city.id, mode, setDisplayMode]);
-
-  const handleToggle = () =>
-    setMode(prev => (prev === 'digital' ? 'analog' : 'digital'));
+  const handleToggle = () => {
+    const nextMode = mode === 'digital' ? 'analog' : 'digital';
+    setDisplayMode(city.id, nextMode);
+  };
 
   return (
     <div className="card shadow-sm h-100">
